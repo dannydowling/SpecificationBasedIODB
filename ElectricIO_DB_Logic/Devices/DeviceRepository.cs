@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ElectricIO_DB_Logic.Devices
 {
-    public class MovieRepository
+    public class DeviceRepository
     {
         public Maybe<Device> GetOne(long id)
         {
