@@ -22,7 +22,8 @@ namespace ElectricIO_DB_Logic.Devices
 
         public IReadOnlyList<DeviceDto> GetList(
             Specification<Device> specification,
-            double minimumRating,
+            DateTime minimumReleaseDate,
+            Manufacturer Manufacturer,
             int page = 0,
             int pageSize = 20)
         {
@@ -30,7 +31,9 @@ namespace ElectricIO_DB_Logic.Devices
             {
                 return session.Query<Device>()
                     .Where(specification.ToExpression())
-                    .Where(x => x.Subversion >= minimumRating)
+                    .Where(x => x.Manufacturer == Manufacturer)
+                    .Where(x => x.ReleaseDate >= minimumReleaseDate)
+                    
                     .Skip(page * pageSize)
                     .Take(pageSize)
                     .Fetch(x => x.Maintainer)
